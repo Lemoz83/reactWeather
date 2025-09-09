@@ -15,12 +15,12 @@ export default function SearchBar({ searchLocation, setSearchLocation }) {
       <div className="search-container">
         <Form.Control
           type="text"
-          placeholder="Enter Location"
+          placeholder="Search for a city..."
           value={searchLocation}
           onChange={(e) => setSearchLocation(e.target.value)}
           className="border-0 shadow-none"
         />
-        <Button type="submit" variant="link" className="search-btn p-0">
+        <Button type="submit" variant="muted" className="search-btn p-0">
           <FaSearchLocation size={20} />
         </Button>
       </div>

@@ -26,11 +26,15 @@ function App() {
 
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center min-vh-100">
+      <div
+        className="d-flex justify-content-center align-items-center min-vh-100"
+        style={{ backgroundColor: "#e0f7fa", minHeight: "100vh" }}
+      >
         <Card
           style={{ width: "30rem", borderRadius: "20px" }}
           bg="light"
           border="light"
+          className="shadow-lg"
         >
           <Card.Body className="justify-content-center">
             <Card
@@ -42,7 +46,11 @@ function App() {
                 <div className="text-center mb-3">
                   <Header />
                 </div>
-                <div className="mb-2">
+                <SearchBar
+                  searchLocation={searchLocation}
+                  setSearchLocation={setSearchLocation}
+                />
+                <div className="mb-2 mt-5">
                   <WeatherCard weather={weather} />
                 </div>
                 <div className="text-center text-secondary mb-5">
@@ -51,10 +59,6 @@ function App() {
                 <div className="text-center text-secondary mb-5">
                   <WeatherDetails weather={weather} />
                 </div>
-                <SearchBar
-                  searchLocation={searchLocation}
-                  setSearchLocation={setSearchLocation}
-                />
               </Card.Body>
             </Card>
           </Card.Body>

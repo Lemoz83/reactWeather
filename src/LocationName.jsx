@@ -1,3 +1,4 @@
+import { IoLocation } from "react-icons/io5";
 export default function LocationName({ weather }) {
   if (!weather || !weather.current) {
     return null; // no data yet
@@ -21,7 +22,7 @@ export default function LocationName({ weather }) {
   return (
     <>
       <h5>
-        {weather.location.name},{weather.location.country}
+        <IoLocation /> {weather.location.name},{weather.location.country}
       </h5>
       <span className="ms-3" style={{ fontSize: "16px" }}>
         {formattedDate} {formattedTime}
