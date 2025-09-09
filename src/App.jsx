@@ -7,10 +7,9 @@ import LocationName from "./LocationName";
 import WeatherDetails from "./WeatherDetails";
 
 function App() {
-  const [weather, setWeather] = useState([]);
+  const [weather, setWeather] = useState(null); // null instead of []
   const [searchLocation, setSearchLocation] = useState("");
-
-  // const url = `https://api.weatherapi.com/v1/current.json?key=0999908ae43e4175b9e62256250909&q=${searchLocation}&aqi=no`;
+  const [error, setError] = useState(""); // for handling errors
 
   useEffect(() => {
     if (!searchLocation) return; // don’t fetch if empty
@@ -19,52 +18,69 @@ function App() {
       `https://api.weatherapi.com/v1/current.json?key=0999908ae43e4175b9e62256250909&q=${searchLocation}&aqi=no`
     )
       .then((res) => res.json())
-      .then((data) => setWeather(data))
-      .catch((err) => console.error(err));
+      .then((data) => {
+        if (data.error) {
+          setError("No Location Found..");
+          setWeather(null);
+        } else {
+          setError("");
+          setWeather(data);
+        }
+      })
+      .catch(() => setError("Something went wrong!"));
   }, [searchLocation]);
-  console.log(weather);
 
   return (
-    <>
-      <div
-        className="d-flex justify-content-center align-items-center min-vh-100"
-        style={{ backgroundColor: "#e0f7fa", minHeight: "100vh" }}
+    <div
+      className="d-flex justify-content-center align-items-center min-vh-100"
+      style={{ backgroundColor: "#e0f7fa", minHeight: "100vh" }}
+    >
+      <Card
+        style={{ width: "30rem", borderRadius: "20px" }}
+        bg="light"
+        border="light"
+        className="shadow-lg"
       >
-        <Card
-          style={{ width: "30rem", borderRadius: "20px" }}
-          bg="light"
-          border="light"
-          className="shadow-lg"
-        >
-          <Card.Body className="justify-content-center">
-            <Card
-              style={{ width: "28rem", borderRadius: "20px" }}
-              bg="light"
-              border="secondary"
-            >
-              <Card.Body className="">
-                <div className="text-center mb-3">
-                  <Header />
-                </div>
-                <SearchBar
-                  searchLocation={searchLocation}
-                  setSearchLocation={setSearchLocation}
-                />
-                <div className="mb-2 mt-5">
-                  <WeatherCard weather={weather} />
-                </div>
-                <div className="text-center text-secondary mb-5">
-                  <LocationName weather={weather} />
-                </div>
-                <div className="text-center text-secondary mb-5">
-                  <WeatherDetails weather={weather} />
-                </div>
-              </Card.Body>
-            </Card>
-          </Card.Body>
-        </Card>
-      </div>
-    </>
+        <Card.Body className="justify-content-center">
+          <Card
+            style={{ width: "28rem", borderRadius: "20px" }}
+            bg="light"
+            border="secondary"
+          >
+            <Card.Body>
+              <div className="text-center mb-3">
+                <Header />
+              </div>
+
+              <SearchBar
+                searchLocation={searchLocation}
+                setSearchLocation={setSearchLocation}
+              />
+
+              {/* Error Handling */}
+              {error && (
+                <h5 className="text-muted text-center mt-4">{error}</h5>
+              )}
+
+              {/* Weather Content */}
+              {weather && !error && (
+                <>
+                  <div className="mb-2 mt-5">
+                    <WeatherCard weather={weather} />
+                  </div>
+                  <div className="text-center text-secondary mb-5">
+                    <LocationName weather={weather} />
+                  </div>
+                  <div className="text-center text-secondary mb-5">
+                    <WeatherDetails weather={weather} />
+                  </div>
+                </>
+              )}
+            </Card.Body>
+          </Card>
+        </Card.Body>
+      </Card>
+    </div>
   );
 }
 
