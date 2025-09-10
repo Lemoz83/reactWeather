@@ -5,16 +5,18 @@ export default function Humidity({ weather }) {
   return (
     <>
       <Card border="light">
-        <Card.Text>
-          <div>
+        <div>
+          <Card.Text>
             <span className="" style={{ fontSize: "16px" }}>
               <WiHumidity /> Humidity
             </span>
-          </div>
-          <div>
+          </Card.Text>
+        </div>
+        <div>
+          <Card.Text>
             <span>{weather.current.humidity}%</span>
-          </div>
-        </Card.Text>
+          </Card.Text>
+        </div>
       </Card>
     </>
   );

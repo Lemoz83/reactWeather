@@ -5,16 +5,18 @@ export default function Wind({ weather }) {
   return (
     <>
       <Card border="light">
-        <Card.Text>
-          <div>
+        <div>
+          <Card.Text>
             <span className="" style={{ fontSize: "16px" }}>
               <FaWind /> Wind
             </span>
-          </div>
-          <div>
+          </Card.Text>
+        </div>
+        <div>
+          <Card.Text>
             <span>{weather.current.wind_kph} km/hr</span>
-          </div>
-        </Card.Text>
+          </Card.Text>
+        </div>
       </Card>
     </>
   );
