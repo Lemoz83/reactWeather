@@ -69,7 +69,7 @@ function App() {
         >
           <Card.Body className="justify-content-center">
             <Card
-              style={{ width: "28rem", borderRadius: "20px" }}
+              style={{borderRadius: "20px" }}
               bg="light"
               border="secondary"
             >
